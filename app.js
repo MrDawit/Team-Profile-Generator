@@ -30,8 +30,52 @@ const a_Html = function addToHTML(member) {
   });
 };
 
-function teamPrompt(status) {
+const c_p = function continue_prompt() {
   inquirer.prompt([
+    {
+      type: "confirm",
+      message: "Do you want to continue adding team members?",
+      name: "continue"
+
+    }
+  ]).then(function (data) {
+    if (data.continue === true) {
+      s_p();
+    };
+  });
+};
+
+const s_p = function status_prompt() {
+   inquirer.prompt([
+    {
+      type: "rawlist",
+      message: "Select your choice ",
+      name: "status",
+      choices: [
+        "Starting your team",
+        "Add member to your team",
+        "Return"
+      ]
+    }
+  ]).then(function (data) {
+    switch (data.status) {
+      case "Starting your team":
+        t_p(c_Html);
+        return c_p;
+     
+      case "Add member to your team":
+        t_p(a_Html);
+        return c_p;
+      case "Return":
+        break;
+      default:
+    };
+  });
+
+};
+
+ const t_p = function teamPrompt(stats) {
+   inquirer.prompt([
     {
       type: "rawlist",
       message: "Select your role on the team",
@@ -59,14 +103,10 @@ function teamPrompt(status) {
     }
 
   ]).then(function (data) {
-
-    console.log("Type: " + JSON.stringify(data));
-
     switch (data.employeeType) {
       case "intern":
 
         let Intern_member = new Intern(data.name, data.id, data.email);
-        console.log("Intern: " + JSON.stringify(Intern_member));
 
         inquirer.prompt([
           {
@@ -75,15 +115,12 @@ function teamPrompt(status) {
             message: "Which school(currently or previously) are you from?"
           }
         ]).then(function (data) {
-          console.log("got here with 1");
           Intern_member.school = data.school;
-          status(Intern_member);
-          console.log("Intern plus: " + JSON.stringify(Intern_member));
+          stats(Intern_member);
         });
         break;
       case "engineer":
         let Engineer_member = new Engineer(data.name, data.id, data.email);
-        console.log("Engineer: " + JSON.stringify(Engineer_member));
 
         inquirer.prompt([
           {
@@ -93,14 +130,12 @@ function teamPrompt(status) {
           }
         ]).then(function (data) {
           Engineer_member.github = data.github;
-          status(Engineer_member);
-          console.log("Engineer plus: " + JSON.stringify(Engineer_member));
+          stats(Engineer_member);
         });
 
         break;
       case "manager":
         let Manager_member = new Manager(data.name, data.id, data.email);
-        console.log("Managager: " + JSON.stringify(Manager_member));
         inquirer.prompt([
           {
             type: "input",
@@ -109,63 +144,58 @@ function teamPrompt(status) {
           }
         ]).then(function (data) {
           Manager_member.officeNumber = data.office_number;
-          status(Manager_member);
-          console.log("Manager plus: " + JSON.stringify(Manager_member));
+          stats(Manager_member);
         });
-        break;
-      default:
-    }
-    console.log("got here with 2");
-  });
-};
-
-console.log("Welcome to the Team-Profile-Generator!")
-function status_prompt() {
-  inquirer.prompt([
-    {
-      type: "rawlist",
-      message: "Select your choice ",
-      name: "status",
-      choices: [
-        "Starting your team",
-        "Add member to your team",
-        "Return"
-      ]
-    }
-  ]).then(function (data) {
-    switch (data.status) {
-      case "Starting your team":
-        teamPrompt(c_Html);
-        break;
-      case "Add member to your team":
-        teamPrompt(a_Html);
-        break;
-      case "Return":
         break;
       default:
     };
   });
-
 };
 
-// function continue_prompt() {
-//   inquirer.prompt([
-//     {
-//       type: "confirm",
-//       message: "Do you want to continue adding team members?",
-//       name: "continue"
+let p = console.log("Welcome to the Team-Profile-Generator!");
 
-//     }
-//   ]).then(function (data) {
-//     if (data.continue == true) {
-//       status_prompt();
-//     };
-//   });
+// async function howToRunThis(){
+//    let first = await s_p
+//   let second = await t_p
+//   let third = await c_p
+//   first;
+//   second;
+//   third;
 // };
 
-status_prompt();
+//howToRunThis();
+
+p
+.then(s_p)
+.then(t_p)
+.then(s_p)
+
+// let p = new Promise((resolve)=>{
+//   resolve(s_p);
+//  // console.log("u are number 2");
+// });
+// p.then(function (value){
+//     inquirer.prompt([
+//       {
+//         type: "confirm",
+//         message: "Do you want to continue adding team members?",
+//         name: "continue"
+  
+//       }
+//     ]).then(function (data) {
+//       if (data.continue === true) {
+//         return status_prompt();
+//       };
+//     });
+//   });
+  
+  //console.log("i am number 1");
+// }).catch(()=>{
+//   c_p;
+
+
 //  continue_prompt();
 
 // console.log("Goodbye!");
  // console.log("work please");
-
+ // console.log("last version of team object: " + JSON.stringify(team));
