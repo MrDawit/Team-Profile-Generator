@@ -7,12 +7,12 @@ const fs = require("fs");
 const render = require("./lib/htmlRenderer");
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-
+const pathTeam = "./output/team.html"
 let team = [];
-//console.log("it barely works");
+
 
 //creates new or erases then creates new team.html file
-const c_Html = function createHTML(member) {
+const createHTML = function createHtml(member) {
   team.push(member);
   fs.writeFileSync(outputPath, render(team), function (err) {
     if (err) {
@@ -21,7 +21,7 @@ const c_Html = function createHTML(member) {
   });
 };
 //appends team.html file if already existing (note: also creates new, but does not erase, so this functionality is useless right now)
-const a_Html = function addToHTML(member) {
+const addHTML = function addToHtml(member) {
   team.push(member);
   fs.appendFileSync(outputPath, render(team), function (err) {
     if (err) {
@@ -29,10 +29,16 @@ const a_Html = function addToHTML(member) {
     }
   });
 };
-
-
-
-const s_p = function status_prompt() {
+//function deletes team.html when "starting a new team" is selected since internal code appends team.html using a new container under old container
+function deleteHtml() {
+  fs.unlinkSync(pathTeam, function (err) {
+    if (err) {
+      throw err;
+    }
+  });
+};
+//function uses node prompt to ask whether to start, change team.html file or exit app
+function statusPrompt() {
   inquirer.prompt([
     {
       type: "rawlist",
@@ -47,42 +53,34 @@ const s_p = function status_prompt() {
   ]).then(function (data) {
     switch (data.status) {
       case "Starting your team":
-        t_p(c_Html);
-        // return c_p();
+        teamPrompt(createHTML);
         break;
       case "Add member to your team":
-        t_p(a_Html);
-        // return c_p();
+        teamPrompt(addHTML);
         break;
       case "Return":
         break;
       default:
     };
   });
-
 };
-
-
-
-
-const c_p = function continue_prompt() {
+//function uses node prompt to ask whether user wants to continue to add team members in the same container of the team.html file
+function continuePrompt() {
   inquirer.prompt([
     {
       type: "confirm",
       message: "Do you want to continue adding team members?",
       name: "continue"
-
     }
   ]).then(function (data) {
     if (data.continue === true) {
-      s_p();
+      deleteHtml();
+      statusPrompt();
     };
   });
 };
-
-
-
-const t_p = function teamPrompt(stats) {
+//function uses node prompt to ask team member description questions, then uses that information to either create or append team.html file
+function teamPrompt(stats) {
   inquirer.prompt([
     {
       type: "rawlist",
@@ -123,8 +121,9 @@ const t_p = function teamPrompt(stats) {
           }
         ]).then(function (data) {
           Intern_member.school = data.school;
+          //callback for each type of member (outer callback decides whether to write or append team.html file)
           stats(Intern_member);
-          c_p();
+          continuePrompt();
         });
         break;
       case "engineer":
@@ -139,7 +138,7 @@ const t_p = function teamPrompt(stats) {
         ]).then(function (data) {
           Engineer_member.github = data.github;
           stats(Engineer_member);
-          c_p();
+          continuePrompt();
         });
 
         break;
@@ -154,7 +153,7 @@ const t_p = function teamPrompt(stats) {
         ]).then(function (data) {
           Manager_member.officeNumber = data.office_number;
           stats(Manager_member);
-          c_p();
+          continuePrompt();
         });
         break;
       default:
@@ -162,52 +161,9 @@ const t_p = function teamPrompt(stats) {
   });
 };
 
-const intro = function () {
+function intro() {
   console.log("Welcome to the Team-Profile-Generator!");
 };
-
-// async function howToRunThis(){
-//    let first = await s_p
-//   let second = await t_p
-//   let third = await c_p
-//   first;
-//   second;
-//   third;
-// };
-
-//howToRunThis();
-
+//calling our functions
 intro();
-s_p();
-
-
-
-// let p = new Promise((resolve)=>{
-//   resolve(s_p);
-//  // console.log("u are number 2");
-// });
-// p.then(function (value){
-//     inquirer.prompt([
-//       {
-//         type: "confirm",
-//         message: "Do you want to continue adding team members?",
-//         name: "continue"
-
-//       }
-//     ]).then(function (data) {
-//       if (data.continue === true) {
-//         return status_prompt();
-//       };
-//     });
-//   });
-
-  //console.log("i am number 1");
-// }).catch(()=>{
-//   c_p;
-
-
-//  continue_prompt();
-
-// console.log("Goodbye!");
- // console.log("work please");
- // console.log("last version of team object: " + JSON.stringify(team));
+statusPrompt();
