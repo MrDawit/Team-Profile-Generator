@@ -48,11 +48,12 @@ const s_p = function status_prompt() {
     switch (data.status) {
       case "Starting your team":
         t_p(c_Html);
-      // return c_p();
-
+        // return c_p();
+        break;
       case "Add member to your team":
         t_p(a_Html);
-      // return c_p();
+        // return c_p();
+        break;
       case "Return":
         break;
       default:
