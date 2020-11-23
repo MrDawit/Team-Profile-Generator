@@ -30,6 +30,40 @@ const a_Html = function addToHTML(member) {
   });
 };
 
+
+
+const s_p = function status_prompt() {
+  inquirer.prompt([
+    {
+      type: "rawlist",
+      message: "Select your choice ",
+      name: "status",
+      choices: [
+        "Starting your team",
+        "Add member to your team",
+        "Return"
+      ]
+    }
+  ]).then(function (data) {
+    switch (data.status) {
+      case "Starting your team":
+        t_p(c_Html);
+      // return c_p();
+
+      case "Add member to your team":
+        t_p(a_Html);
+      // return c_p();
+      case "Return":
+        break;
+      default:
+    };
+  });
+
+};
+
+
+
+
 const c_p = function continue_prompt() {
   inquirer.prompt([
     {
@@ -45,37 +79,10 @@ const c_p = function continue_prompt() {
   });
 };
 
-const s_p = function status_prompt() {
-   inquirer.prompt([
-    {
-      type: "rawlist",
-      message: "Select your choice ",
-      name: "status",
-      choices: [
-        "Starting your team",
-        "Add member to your team",
-        "Return"
-      ]
-    }
-  ]).then(function (data) {
-    switch (data.status) {
-      case "Starting your team":
-        t_p(c_Html);
-        return c_p;
-     
-      case "Add member to your team":
-        t_p(a_Html);
-        return c_p;
-      case "Return":
-        break;
-      default:
-    };
-  });
 
-};
 
- const t_p = function teamPrompt(stats) {
-   inquirer.prompt([
+const t_p = function teamPrompt(stats) {
+  inquirer.prompt([
     {
       type: "rawlist",
       message: "Select your role on the team",
@@ -105,7 +112,6 @@ const s_p = function status_prompt() {
   ]).then(function (data) {
     switch (data.employeeType) {
       case "intern":
-
         let Intern_member = new Intern(data.name, data.id, data.email);
 
         inquirer.prompt([
@@ -117,6 +123,7 @@ const s_p = function status_prompt() {
         ]).then(function (data) {
           Intern_member.school = data.school;
           stats(Intern_member);
+          c_p();
         });
         break;
       case "engineer":
@@ -131,6 +138,7 @@ const s_p = function status_prompt() {
         ]).then(function (data) {
           Engineer_member.github = data.github;
           stats(Engineer_member);
+          c_p();
         });
 
         break;
@@ -145,6 +153,7 @@ const s_p = function status_prompt() {
         ]).then(function (data) {
           Manager_member.officeNumber = data.office_number;
           stats(Manager_member);
+          c_p();
         });
         break;
       default:
@@ -152,7 +161,9 @@ const s_p = function status_prompt() {
   });
 };
 
-let p = console.log("Welcome to the Team-Profile-Generator!");
+const intro = function () {
+  console.log("Welcome to the Team-Profile-Generator!");
+};
 
 // async function howToRunThis(){
 //    let first = await s_p
@@ -165,10 +176,10 @@ let p = console.log("Welcome to the Team-Profile-Generator!");
 
 //howToRunThis();
 
-p
-.then(s_p)
-.then(t_p)
-.then(s_p)
+intro();
+s_p();
+
+
 
 // let p = new Promise((resolve)=>{
 //   resolve(s_p);
@@ -180,7 +191,7 @@ p
 //         type: "confirm",
 //         message: "Do you want to continue adding team members?",
 //         name: "continue"
-  
+
 //       }
 //     ]).then(function (data) {
 //       if (data.continue === true) {
@@ -188,7 +199,7 @@ p
 //       };
 //     });
 //   });
-  
+
   //console.log("i am number 1");
 // }).catch(()=>{
 //   c_p;
