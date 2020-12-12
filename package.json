@@ -1,25 +1,26 @@
 {
-  "name": "unit10hw",
+  "name": "Team-Profile-Generator",
   "version": "1.0.0",
-  "description": "OOP and testing for week 10 homework",
+  "description": "OOP and testing",
   "main": "app.js",
   "directories": {
     "lib": "lib",
     "test": "test"
   },
   "scripts": {
+    "start": "node app.js",
     "test": "jest --verbose test/*"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stevetrilogy/unit10hw.git"
+    "url": "git+https://github.com/MrDawit/Team-Profile-Generator"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/stevetrilogy/unit10hw/issues"
+    "url": "https://github.com/MrDawit/Team-Profile-Generator/issues"
   },
-  "homepage": "https://github.com/stevetrilogy/unit10hw#readme",
+  "homepage": "https://github.com/MrDawit/Team-Profile-Generator#readme",
   "dependencies": {
     "inquirer": "^6.3.1"
   },
