@@ -12,11 +12,10 @@
 an app to help construct a webpage showing team profiles from a workplace
 
 Repository: https://github.com/MrDawit/Team-Profile-Generator 
-Live Link: 
+App Walkthrough Link: https://drive.google.com/file/d/12EYcq-1_W4k0Z7N0Z9Ao8vZOcCiP8N6v/view \
 
-<img src="#">
+<img src="./assets/team-profile-generator.gif">
 
-<img src="#">
 
 ## Description
 An app that transplants info derived from a node terminal to an HTML page as its' endpoint. This app was created using a base code from Trilogy Bootcamp. Included are tests (Jest) to ensure the app classes are correct. 

@@ -167,7 +167,7 @@ function intro() {
   console.log("Welcome to the Team-Profile-Generator!");
 };
 function ender() {
-  console.log("Your new or updated 'team.html' file should be in your OUTPUT directory!")
+  console.log("\n\n Your new or updated 'team.html' file should be in your OUTPUT directory!")
 }
 //calling our functions
 intro();
