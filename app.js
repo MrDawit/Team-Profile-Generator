@@ -76,6 +76,8 @@ function continuePrompt() {
     if (data.continue === true) {
       deleteHtml();
       statusPrompt();
+    } else {
+        ender();
     };
   });
 };
@@ -84,7 +86,7 @@ function teamPrompt(stats) {
   inquirer.prompt([
     {
       type: "rawlist",
-      message: "Select your role on the team",
+      message: "Select their role on the team",
       name: "employeeType",
       choices: [
         "intern",
@@ -95,17 +97,17 @@ function teamPrompt(stats) {
     {
       type: "input",
       name: "name",
-      message: "What is your name?"
+      message: "What is their name?"
     },
     {
       type: "input",
       name: "id",
-      message: "What is your id?"
+      message: "What is their id?"
     },
     {
       type: "input",
       name: "email",
-      message: "What is your email?"
+      message: "What is their email?"
     }
 
   ]).then(function (data) {
@@ -117,7 +119,7 @@ function teamPrompt(stats) {
           {
             type: "input",
             name: "school",
-            message: "Which school(currently or previously) are you from?"
+            message: "Which school(currently or previously) are they from?"
           }
         ]).then(function (data) {
           Intern_member.school = data.school;
@@ -133,7 +135,7 @@ function teamPrompt(stats) {
           {
             type: "input",
             name: "github",
-            message: "What is your github username?"
+            message: "What is their github username?"
           }
         ]).then(function (data) {
           Engineer_member.github = data.github;
@@ -148,7 +150,7 @@ function teamPrompt(stats) {
           {
             type: "input",
             name: "office_number",
-            message: "What is your office number?"
+            message: "What is their office number?"
           }
         ]).then(function (data) {
           Manager_member.officeNumber = data.office_number;
@@ -164,6 +166,9 @@ function teamPrompt(stats) {
 function intro() {
   console.log("Welcome to the Team-Profile-Generator!");
 };
+function ender() {
+  console.log("Your new or updated 'team.html' file should be in your OUTPUT directory!")
+}
 //calling our functions
 intro();
 statusPrompt();

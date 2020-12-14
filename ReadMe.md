@@ -44,5 +44,5 @@ An app that transplants info derived from a node terminal to an HTML page as its
 Shalom Dawit\
 LinkedIn:https://www.linkedin.com/in/shalom-dawit-a0a5a4126 \
 GitHub:https://github.com/MrDawit \
-Email:Shalom.Dawit@gmail.com 
-GitHub:https://github.com/stevetrilogy \
+Email:Shalom.Dawit@gmail.com \
+GitHub:https://github.com/stevetrilogy 
