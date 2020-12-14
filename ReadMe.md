@@ -11,7 +11,7 @@
 
 an app to help construct a webpage showing team profiles from a workplace
 
-Repository: https://github.com/MrDawit/Team-Profile-Generator 
+Repository: https://github.com/MrDawit/Team-Profile-Generator \
 App Walkthrough Link: https://drive.google.com/file/d/12EYcq-1_W4k0Z7N0Z9Ao8vZOcCiP8N6v/view \
 
 <img src="./assets/team-profile-generator.gif">
